@@ -1,0 +1,322 @@
+﻿@model List<KananeloMotaungDev.Models.Project>
+
+@{
+    // This value appears in the browser tab.
+    ViewData["Title"] = "Software Engineer";
+}
+
+<!-- ======================================================
+     HERO SECTION
+     Introduces who you are, your focus, and your main stack.
+     ====================================================== -->
+<section class="hero" id="home">
+    <div class="portfolio-container hero-layout">
+
+        <div class="hero-copy">
+            <p class="eyebrow">
+                SOFTWARE ENGINEER · APPLICATION DEVELOPER
+            </p>
+
+            <h1>
+                Building reliable software for
+                <span>real business needs.</span>
+            </h1>
+
+            <p class="hero-description">
+                I’m Kananelo Motaung, a software engineer focused on building reliable
+                applications, database-driven systems, and structured business workflows
+                using .NET, SQL, and modern web technologies.
+            </p>
+
+            <div class="hero-actions">
+                <a class="button button-primary" href="#projects">
+                    Explore Projects
+                </a>
+
+                <a class="button button-secondary"
+                   href="/documents/Kananelo-Motaung-Resume.pdf"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    View Resume
+                </a>
+            </div>
+
+            <div class="technology-list" aria-label="Primary technologies">
+                <span>C#</span>
+                <span>ASP.NET Core</span>
+                <span>SQL</span>
+                <span>React</span>
+                <span>Git</span>
+            </div>
+        </div>
+
+        <aside class="focus-card">
+            <div class="focus-card-header">
+                <span>Professional focus</span>
+
+                <span class="status-indicator"
+                      aria-label="Available for opportunities">
+                </span>
+            </div>
+
+            <h2>Developing practical, scalable applications.</h2>
+
+            <p class="focus-summary">
+                Focused on application development, system design,
+                workflow automation, and database-driven solutions.
+            </p>
+
+            <div class="card-divider"></div>
+
+            <dl class="focus-details">
+                <div>
+                    <dt>Location</dt>
+                    <dd>Little Rock, Arkansas</dd>
+                </div>
+
+                <div>
+                    <dt>Availability</dt>
+                    <dd>Open to software opportunities</dd>
+                </div>
+
+                <div>
+                    <dt>Core stack</dt>
+                    <dd>.NET · SQL · React</dd>
+                </div>
+            </dl>
+        </aside>
+
+    </div>
+</section>
+
+
+<!-- ======================================================
+     PROJECTS SECTION
+     HomeController sends Project objects to this view.
+     ====================================================== -->
+<section class="section projects-section" id="projects">
+    <div class="portfolio-container">
+
+        <p class="eyebrow">SELECTED PROJECTS</p>
+
+        <h2 class="section-heading">
+            Applications designed to solve operational problems.
+        </h2>
+
+        <p class="section-introduction">
+            A growing collection of systems that demonstrate application architecture,
+            workflow design, database integration, and practical problem solving.
+        </p>
+
+        <div class="projects-grid">
+
+            @foreach (var project in Model)
+            {
+                <article class="project-card @(project.IsFeatured ? "project-card-featured" : "")">
+
+                    <div class="project-image">
+
+                        @if (!string.IsNullOrWhiteSpace(project.ImagePath))
+                        {
+                            <!-- A real project screenshot is displayed when available. -->
+                            <img src="@project.ImagePath"
+                                 alt="@project.Title project preview" />
+                        }
+                        else
+                        {
+                            <!--
+                                Custom preview shown while the project does not
+                                have a real screenshot.
+                            -->
+                            <div class="project-preview">
+                                <div class="preview-window">
+
+                                    <div class="preview-toolbar">
+                                        <div class="preview-dots" aria-hidden="true">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+
+                                        <span class="preview-address">
+                                            localhost/@project.Title.ToLower().Replace(" ", "-")
+                                        </span>
+                                    </div>
+
+                                    <div class="preview-body">
+                                        <p class="preview-label">
+                                            PROJECT IN DEVELOPMENT
+                                        </p>
+
+                                        <h3>@project.Title</h3>
+
+                                        <p class="preview-description">
+                                            Building and refining the application architecture,
+                                            interface, and core functionality.
+                                        </p>
+
+                                        <div class="preview-technology-list">
+                                            @foreach (var technology in project.Technologies.Take(3))
+                                            {
+                                                <span>@technology</span>
+                                            }
+                                        </div>
+
+                                        <div class="preview-status">
+                                            <span class="preview-status-dot"></span>
+                                            <span>Development active</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <div class="project-header">
+                            <h3>@project.Title</h3>
+
+                            @if (project.IsFeatured)
+                            {
+                                <span class="featured-badge">
+                                    Featured
+                                </span>
+                            }
+                        </div>
+
+                        <p class="project-description">
+                            @project.Description
+                        </p>
+
+                        <div class="project-technologies">
+                            @foreach (var technology in project.Technologies)
+                            {
+                                <span>@technology</span>
+                            }
+                        </div>
+
+                        @if (!string.IsNullOrWhiteSpace(project.GitHubUrl) ||
+                             !string.IsNullOrWhiteSpace(project.LiveUrl))
+                        {
+                            <div class="project-links">
+
+                                @if (!string.IsNullOrWhiteSpace(project.GitHubUrl))
+                                {
+                                    <a href="@project.GitHubUrl"
+                                       target="_blank"
+                                       rel="noopener noreferrer">
+                                        View Code
+                                    </a>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(project.LiveUrl))
+                                {
+                                    <a href="@project.LiveUrl"
+                                       target="_blank"
+                                       rel="noopener noreferrer">
+                                        Live Demo
+                                    </a>
+                                }
+
+                            </div>
+                        }
+
+                    </div>
+
+                </article>
+            }
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ======================================================
+     ABOUT SECTION
+     Personal information is written directly in the view.
+     ====================================================== -->
+<section class="section about-section" id="about">
+    <div class="portfolio-container about-grid">
+
+        <div class="about-heading">
+            <p class="eyebrow">ABOUT</p>
+
+            <h2 class="section-heading about-title">
+                Building software with structure, purpose, and long-term value.
+            </h2>
+        </div>
+
+        <div class="about-content">
+
+            <p class="about-lead">
+                I build software by turning business requirements into organized,
+                reliable, and maintainable applications.
+            </p>
+
+            <p>
+                My primary experience includes C#, ASP.NET Core MVC, SQL,
+                Entity Framework Core, React, Git, workflow automation,
+                and role-based application design.
+            </p>
+
+            <p>
+                I enjoy understanding how a system should work, breaking larger
+                problems into manageable parts, and developing solutions that are
+                clear enough to maintain and expand over time.
+            </p>
+
+            <p>
+                I am continuing to strengthen my full-stack development,
+                application architecture, debugging, and deployment skills
+                through practical software projects.
+            </p>
+
+            <div class="about-highlights">
+
+                <article class="about-highlight">
+                    <span class="about-number">01</span>
+
+                    <div>
+                        <h3>Application Development</h3>
+
+                        <p>
+                            Building structured applications with clear responsibilities,
+                            business rules, and maintainable code.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="about-highlight">
+                    <span class="about-number">02</span>
+
+                    <div>
+                        <h3>Database Systems</h3>
+
+                        <p>
+                            Designing data-driven features using SQL,
+                            relational models, and application-level validation.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="about-highlight">
+                    <span class="about-number">03</span>
+
+                    <div>
+                        <h3>Problem Solving</h3>
+
+                        <p>
+                            Breaking down technical requirements and turning
+                            them into practical software solutions.
+                        </p>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+
+    </div>
+</section>

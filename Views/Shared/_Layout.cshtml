@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <!-- Makes the portfolio resize correctly on phones and tablets. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ViewData comes from each Razor page and changes the browser-tab title. -->
+    <title>@ViewData["Title"] | Kananelo Motaung</title>
+
+    <!-- Bootstrap provides the mobile collapse behavior. -->
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <!-- Our portfolio design rules. -->
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+</head>
+
+<body>
+    <!-- Shared navigation shown on every page. -->
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Main navigation">
+            <div class="portfolio-container nav-inner">
+
+                <!-- asp-controller and asp-action generate the home-page URL. -->
+                <a class="brand"
+                   asp-controller="Home"
+                   asp-action="Index"
+                   aria-label="Kananelo Motaung home">
+                    KM<span>.</span>
+                </a>
+
+                <!-- Visible only on smaller screens. -->
+                <button class="menu-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavigation"
+                        aria-controls="mainNavigation"
+                        aria-expanded="false"
+                        aria-label="Open navigation">
+                    Menu
+                </button>
+
+                <!-- Bootstrap opens and closes this area on mobile. -->
+                <div class="collapse navbar-collapse portfolio-navigation"
+                     id="mainNavigation">
+                    <a href="#home">Home</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+
+                    <a class="nav-resume"
+                       href="/documents/Kananelo-Motaung-Resume.pdf"
+                       target="_blank">
+                        Resume
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Each Razor view is inserted here. -->
+    <main>
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer">
+        <div class="portfolio-container footer-inner">
+            <p>&copy; @DateTime.Now.Year Kananelo Motaung</p>
+            <p>Software Engineer</p>
+        </div>
+    </footer>
+
+    <!-- Required for the mobile navigation button. -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
